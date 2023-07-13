@@ -1,4 +1,4 @@
-import { CustomTextField, RedditTextField } from '@/components/InputTextField'
+import { CustomTextField } from '@/components/InputTextField'
 import useFipeSearch from '@/hooks/useFipeSearch'
 import {
   TableContainer,
