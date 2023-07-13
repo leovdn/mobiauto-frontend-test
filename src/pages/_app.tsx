@@ -8,6 +8,7 @@ import createEmotionCache from '@/utils/createEmotionCache'
 
 import { GlobalStyle } from '@/styles/global'
 import { theme } from '@/styles/themes/default'
+import { FipeSearchProvider } from '@/context/FipeSearchContext'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -22,11 +23,13 @@ export default function MyApp(props: MyAppProps) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <FipeSearchProvider initialCarList={props.pageProps}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </FipeSearchProvider>
     </CacheProvider>
   )
 }
