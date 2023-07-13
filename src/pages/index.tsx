@@ -1,6 +1,19 @@
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Container,
+  Paper,
+  TextField,
+} from '@mui/material'
 import Head from 'next/head'
 
 export default function Home() {
+  const options = [
+    { label: 'The Godfather', id: 1 },
+    { label: 'Pulp Fiction', id: 2 },
+  ]
+
   return (
     <>
       <Head>
@@ -10,7 +23,51 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>Tabela Fipe - Frontend Teste</div>
+        <Container
+          component="main"
+          maxWidth="lg"
+          sx={{
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: '#f1f1f1',
+          }}
+        >
+          <Paper sx={{ my: { xs: 3, md: 6 }, p: '2rem 3rem' }}>
+            <h1>Tabela Fipe</h1>
+            <p>Consulte o valor de um veículo de forma gratuita</p>
+            <Autocomplete
+              disablePortal
+              id="marca"
+              options={options}
+              sx={{ width: 300, my: '0.5rem' }}
+              renderInput={(params) => (
+                <TextField {...params} label="Marca" variant="filled" />
+              )}
+            />
+            <Autocomplete
+              disablePortal
+              id="modelo"
+              options={options}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Modelo" variant="filled" />
+              )}
+            />
+
+            <Autocomplete
+              disablePortal
+              id="ano"
+              options={options}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Ano" variant="filled" />
+              )}
+            />
+            <Button variant="contained">Consultar Preço</Button>
+          </Paper>
+        </Container>
       </main>
     </>
   )

@@ -1,4 +1,6 @@
 function checkIfTheFirstLetterIsUppercase(word) {
-  //your code here...
+  const firstLetter = word.charAt(0)
+  return firstLetter === firstLetter.toUpperCase()
 }
+
 module.exports = checkIfTheFirstLetterIsUppercase
