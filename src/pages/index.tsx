@@ -6,13 +6,27 @@ import {
   Paper,
   TextField,
 } from '@mui/material'
+import axios from 'axios'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 
-export default function Home() {
+interface CarProps {
+  codigo: string
+  nome: string
+}
+interface HomeProps {
+  cars: CarProps[]
+}
+
+export default function Home({ cars }: HomeProps) {
   const options = [
     { label: 'The Godfather', id: 1 },
     { label: 'Pulp Fiction', id: 2 },
   ]
+
+  const carBrands = [...cars]
+
+  console.log(cars)
 
   return (
     <>
@@ -40,7 +54,7 @@ export default function Home() {
             <Autocomplete
               disablePortal
               id="marca"
-              options={options}
+              options={carBrands}
               sx={{ width: 300, my: '0.5rem' }}
               renderInput={(params) => (
                 <TextField {...params} label="Marca" variant="filled" />
@@ -71,4 +85,24 @@ export default function Home() {
       </main>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const carBrands = await axios.get(
+    'https://parallelum.com.br/fipe/api/v1/carros/marcas'
+  )
+
+  const cars = carBrands.data.map((car: CarProps) => {
+    return {
+      label: car.nome,
+      id: car.codigo,
+    }
+  })
+
+  return {
+    props: {
+      cars,
+    },
+    revalidate: 60 * 60 * 2, // 2 hours,
+  }
 }
