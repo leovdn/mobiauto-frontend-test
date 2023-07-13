@@ -2,7 +2,7 @@ import { Container } from '@mui/material'
 import Head from 'next/head'
 import React from 'react'
 import axios from 'axios'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
 
 interface IVehicleFipeInfo {
   TipoVeiculo: number
@@ -17,6 +17,7 @@ interface IVehicleFipeInfo {
 }
 
 export default function Result(vehicleFipeInfo: IVehicleFipeInfo) {
+  console.log(vehicleFipeInfo)
   return (
     <>
       <Head>
@@ -38,8 +39,11 @@ export default function Result(vehicleFipeInfo: IVehicleFipeInfo) {
           }}
         >
           <div>
-            <h1>Tabela Fipe: Preço Marca Modelo Ano</h1>
-            <p>R$ 91.618</p>
+            <h1>
+              Tabela Fipe: Preço {vehicleFipeInfo.Marca}{' '}
+              {vehicleFipeInfo.Modelo} {vehicleFipeInfo.AnoModelo}
+            </h1>
+            <p>{vehicleFipeInfo.Valor}</p>
             <span>Este é o preço de compra do veículo</span>
           </div>
         </Container>
@@ -48,36 +52,30 @@ export default function Result(vehicleFipeInfo: IVehicleFipeInfo) {
   )
 }
 
-// export const getStaticPaths = async () => {
-//   return {
-//     paths: [
-//       {
-//         params: {
-//           slug: 'resultado',
-//           marca: '2',
-//           modelo: '4563',
-//           ano: '2021-3',
-//         },
-//       },
-//     ],
-//     fallback: 'blocking',
-//   }
-// }
+export const getServerSideProps: GetServerSideProps<
+  any,
+  { slug: string; modelo: string; marca: string; ano: string }
+> = async ({ query }) => {
+  const marca = String(query.marca)
+  const modelo = String(query.modelo)
+  const ano = String(query.ano)
 
-// export const getStaticProps: GetStaticProps<
-//   any,
-//   { marca: string; modelo: string; ano: string }
-// > = async ({ params }) => {
-//   const response = await axios.get(
-//     `https://parallelum.com.br/fipe/api/v1/carros/marcas/${params?.marca}/modelos/${params?.modelo}/anos/${params?.ano}`
-//   )
+  // const response = await axios.get(
+  //   `https://parallelum.com.br/fipe/api/v1/carros/marcas/${marca}/modelos/${modelo}/anos/${ano}`
+  // )
 
-//   const vehicleFipeInfo = response.data
+  // const vehicleFipeInfo = response.data
+  try {
+    const { data } = await axios.get(
+      `https://parallelum.com.br/fipe/api/v1/carros/marcas/${marca}/modelos/${modelo}/anos/${ano}`
+    )
 
-//   return {
-//     props: {
-//       vehicleFipeInfo,
-//     },
-//     revalidate: 60 * 60 * 1, // 1 hours
-//   }
-// }
+    if (!data) {
+      return { notFound: true }
+    }
+
+    return { props: { ...data } }
+  } catch (error) {
+    return { notFound: true }
+  }
+}

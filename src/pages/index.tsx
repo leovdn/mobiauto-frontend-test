@@ -12,6 +12,7 @@ import {
 import axios from 'axios'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
@@ -77,16 +78,16 @@ export default function Home({ carBrandsList }: HomeProps) {
     setSelectedYear(value)
   }
 
-  function handleGetFipeValue() {
-    router.push('/result', {
-      pathname: '/result',
-      query: {
-        brand: selectedBrand.codigo,
-        model: selectedModel.codigo,
-        year: selectedYear.codigo,
-      },
-    })
-  }
+  // function handleGetFipeValue() {
+  //   router.push('/result', {
+  //     pathname: '/result',
+  //     query: {
+  //       brand: selectedBrand.codigo,
+  //       model: selectedModel.codigo,
+  //       year: selectedYear.codigo,
+  //     },
+  //   })
+  // }
 
   // if (isLoading) {
   //   return <CircularProgress />
@@ -156,13 +157,22 @@ export default function Home({ carBrandsList }: HomeProps) {
                 disabled={!selectedModel}
               />
 
-              <Button
-                onClick={handleGetFipeValue}
-                variant="contained"
-                disabled={!selectedYear}
+              <Link
+                href={{
+                  pathname: '/vehicle/[slug]',
+                  query: {
+                    slug: selectedBrand?.nome,
+                    marca: selectedBrand?.codigo,
+                    modelo: selectedModel?.codigo,
+                    ano: selectedYear?.codigo,
+                  },
+                }}
+                // href={`/vehicle/${selectedBrand?.codigo}`}
               >
-                Consultar Preço
-              </Button>
+                <Button variant="contained" disabled={!selectedYear}>
+                  Consultar Preço
+                </Button>
+              </Link>
             </div>
           </Paper>
         </Container>
