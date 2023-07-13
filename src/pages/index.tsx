@@ -1,32 +1,100 @@
+import useFipeSearch from '@/hooks/useFipeSearch'
 import {
   Autocomplete,
   Box,
   Button,
+  CircularProgress,
   Container,
+  Grid,
   Paper,
   TextField,
 } from '@mui/material'
 import axios from 'axios'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
 
-interface CarProps {
+interface CarRequestProps {
   codigo: string
   nome: string
 }
+
+interface CarProps {
+  nome: string
+  codigo: string
+}
 interface HomeProps {
-  cars: CarProps[]
+  carBrandsList: CarProps[]
 }
 
-export default function Home({ cars }: HomeProps) {
-  const options = [
-    { label: 'The Godfather', id: 1 },
-    { label: 'Pulp Fiction', id: 2 },
-  ]
+export default function Home({ carBrandsList }: HomeProps) {
+  const {
+    carList,
+    modelList,
+    isLoading,
+    error,
+    selectCar,
+    selectModel,
+    selectYear,
+    yearList,
+  } = useFipeSearch()
+  const [selectedBrand, setSelectedBrand] = useState<any>(null)
+  const [selectedModel, setSelectedModel] = useState<any>(null)
+  const [selectedYear, setSelectedYear] = useState<any>(null)
 
-  const carBrands = [...cars]
+  const router = useRouter()
 
-  console.log(cars)
+  useEffect(() => {
+    if (selectedBrand) {
+      selectCar(selectedBrand.codigo)
+    }
+  }, [selectedBrand, selectCar])
+
+  useEffect(() => {
+    if (selectedModel) {
+      selectModel(selectedModel.codigo)
+    }
+  }, [selectedModel, selectModel])
+
+  useEffect(() => {
+    if (selectedYear) {
+      selectYear(selectedYear.codigo)
+    }
+  }, [selectedYear, selectYear])
+
+  const handleBrandChange = (event: any, value: string) => {
+    setSelectedBrand(value)
+    setSelectedModel(null)
+    setSelectedYear(null)
+  }
+
+  const handleModelChange = (event: any, value: string) => {
+    setSelectedModel(value)
+  }
+
+  const handleYearChange = (event: any, value: string) => {
+    setSelectedYear(value)
+  }
+
+  function handleGetFipeValue() {
+    router.push('/result', {
+      pathname: '/result',
+      query: {
+        brand: selectedBrand.codigo,
+        model: selectedModel.codigo,
+        year: selectedYear.codigo,
+      },
+    })
+  }
+
+  // if (isLoading) {
+  //   return <CircularProgress />
+  // }
+
+  if (error) {
+    return <div>Error: {error.message}</div>
+  }
 
   return (
     <>
@@ -42,44 +110,60 @@ export default function Home({ cars }: HomeProps) {
           maxWidth="lg"
           sx={{
             height: '100vh',
+            width: '100vw',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            background: '#f1f1f1',
           }}
         >
-          <Paper sx={{ my: { xs: 3, md: 6 }, p: '2rem 3rem' }}>
+          <Paper
+            sx={{
+              maxWidth: '40rem',
+              width: '100%',
+              my: { xs: 3, md: 6 },
+              p: '2rem 3rem',
+            }}
+          >
             <h1>Tabela Fipe</h1>
             <p>Consulte o valor de um veículo de forma gratuita</p>
-            <Autocomplete
-              disablePortal
-              id="marca"
-              options={carBrands}
-              sx={{ width: 300, my: '0.5rem' }}
-              renderInput={(params) => (
-                <TextField {...params} label="Marca" variant="filled" />
-              )}
-            />
-            <Autocomplete
-              disablePortal
-              id="modelo"
-              options={options}
-              sx={{ width: 300 }}
-              renderInput={(params) => (
-                <TextField {...params} label="Modelo" variant="filled" />
-              )}
-            />
 
-            <Autocomplete
-              disablePortal
-              id="ano"
-              options={options}
-              sx={{ width: 300 }}
-              renderInput={(params) => (
-                <TextField {...params} label="Ano" variant="filled" />
-              )}
-            />
-            <Button variant="contained">Consultar Preço</Button>
+            <div>
+              <Autocomplete
+                options={carBrandsList}
+                getOptionLabel={(option) => option.nome}
+                value={selectedBrand}
+                onChange={handleBrandChange}
+                renderInput={(params) => (
+                  <TextField {...params} label="Marca" />
+                )}
+              />
+              <Autocomplete
+                options={modelList}
+                getOptionLabel={(option) => option.nome}
+                value={selectedModel}
+                onChange={handleModelChange}
+                renderInput={(params) => (
+                  <TextField {...params} label="Modelo" />
+                )}
+                disabled={!selectedBrand}
+              />
+              <Autocomplete
+                options={yearList} // Example years
+                getOptionLabel={(option) => option.nome}
+                value={selectedYear}
+                onChange={handleYearChange}
+                renderInput={(params) => <TextField {...params} label="Ano" />}
+                disabled={!selectedModel}
+              />
+
+              <Button
+                onClick={handleGetFipeValue}
+                variant="contained"
+                disabled={!selectedYear}
+              >
+                Consultar Preço
+              </Button>
+            </div>
           </Paper>
         </Container>
       </main>
@@ -87,22 +171,16 @@ export default function Home({ cars }: HomeProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const carBrands = await axios.get(
+export async function getStaticProps() {
+  const response = await axios.get(
     'https://parallelum.com.br/fipe/api/v1/carros/marcas'
   )
-
-  const cars = carBrands.data.map((car: CarProps) => {
-    return {
-      label: car.nome,
-      id: car.codigo,
-    }
-  })
+  const carBrandsList = response.data
 
   return {
     props: {
-      cars,
+      carBrandsList,
     },
-    revalidate: 60 * 60 * 2, // 2 hours,
+    revalidate: 3600,
   }
 }
