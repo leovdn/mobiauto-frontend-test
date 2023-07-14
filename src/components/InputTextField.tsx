@@ -17,15 +17,30 @@ export const CustomTextField = styled((props: TextFieldProps) => (
     outline: 'none',
     borderColor: theme.palette.grey[400],
     transition: theme.transitions.create(['background-color', 'box-shadow']),
+    '& input': {
+      color: `${theme.palette.grey[800]}`,
+    },
+
     '&:hover': {
       backgroundColor: 'transparent',
+      border: `1px solid ${theme.palette.primary.main}`,
     },
     '&.Mui-focused': {
       backgroundColor: 'transparent',
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
+      border: `1px solid ${theme.palette.primary.main}`,
     },
   },
   '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:before': {
     borderBottom: 0,
+    display: 'none',
+  },
+  '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:after': {
+    borderBottom: 0,
+  },
+  '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:hover': {
+    outline: 'blue',
+  },
+  '& label': {
+    color: `${theme.palette.grey[500]}`,
   },
 }))

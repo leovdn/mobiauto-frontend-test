@@ -100,14 +100,7 @@ export default function Home({ carBrandsList }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainContainer>
-        {/* <Paper
-            sx={{
-              maxWidth: '40rem',
-              width: '100%',
-              my: { xs: 3, md: 6 },
-              p: '2rem 3rem',
-            }}
-          > */}
+        {isLoading && <CircularProgress />}
         <h1>Tabela Fipe</h1>
         <h2>Consulte o valor de um veículo de forma gratuita</h2>
 
@@ -159,7 +152,6 @@ export default function Home({ carBrandsList }: HomeProps) {
                   ano: selectedYear?.codigo,
                 },
               }}
-              // href={`/vehicle/${selectedBrand?.codigo}`}
             >
               Consultar Preço
             </Link>
