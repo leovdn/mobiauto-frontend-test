@@ -27,7 +27,7 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
         <link rel="shortcut icon" href="/favicon.ico" />

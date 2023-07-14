@@ -15,7 +15,7 @@ export const CustomTextField = styled((props: TextFieldProps) => (
     backgroundColor: 'transparent',
     border: '1px solid',
     outline: 'none',
-    borderColor: theme.palette.grey[400],
+    borderColor: theme.palette.grey[300],
     transition: theme.transitions.create(['background-color', 'box-shadow']),
     '& input': {
       color: `${theme.palette.grey[800]}`,
@@ -30,6 +30,10 @@ export const CustomTextField = styled((props: TextFieldProps) => (
       border: `1px solid ${theme.palette.primary.main}`,
     },
   },
+  '& .MuiFilledInput-root:disabled': {
+    backgroundColor: 'transparent',
+    border: 'none',
+  },
   '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:before': {
     borderBottom: 0,
     display: 'none',
@@ -39,6 +43,10 @@ export const CustomTextField = styled((props: TextFieldProps) => (
   },
   '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:hover': {
     outline: 'blue',
+  },
+  '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root.Mui-disabled': {
+    outline: 'none',
+    backgroundColor: 'transparent',
   },
   '& label': {
     color: `${theme.palette.grey[500]}`,

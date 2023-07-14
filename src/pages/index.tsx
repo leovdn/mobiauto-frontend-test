@@ -4,22 +4,19 @@ import {
   TableContainer,
   MainContainer,
   ConsultPriceButton,
+  BackgroundSection,
 } from '@/styles/pages/home'
-import {
-  Autocomplete,
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  Paper,
-  TextField,
-} from '@mui/material'
+import { Autocomplete } from '@mui/material'
 import axios from 'axios'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+
+import BgDetails from '../assets/bg-details.svg'
+import BgDetails2 from '../assets/bg-details2.svg'
+import Image from 'next/image'
 
 interface CarRequestProps {
   codigo: string
@@ -100,7 +97,11 @@ export default function Home({ carBrandsList }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainContainer>
-        {isLoading && <CircularProgress />}
+        <BackgroundSection>
+          <Image src={BgDetails2} alt={''} />
+          <Image src={BgDetails} alt={''} />
+        </BackgroundSection>
+
         <h1>Tabela Fipe</h1>
         <h2>Consulte o valor de um veículo de forma gratuita</h2>
 
@@ -139,6 +140,7 @@ export default function Home({ carBrandsList }: HomeProps) {
               <CustomTextField {...params} label="Ano" variant="filled" />
             )}
             disabled={!selectedModel}
+            hidden={!selectedModel}
           />
 
           <ConsultPriceButton variant="contained" disabled={!selectedYear}>

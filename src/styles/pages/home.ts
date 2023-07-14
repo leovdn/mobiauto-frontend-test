@@ -1,14 +1,13 @@
-import { Container, Paper, Button } from '@mui/material'
+import { Paper, Button } from '@mui/material'
 import styled from 'styled-components'
 import { theme } from '../themes/default'
 
 export const MainContainer = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100%;
+  margin-top: 8em;
 `
 
 export const TableContainer = styled(Paper)`
@@ -21,9 +20,25 @@ export const TableContainer = styled(Paper)`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+`
 
-  .auto-select {
-    /* width: 100%; */
+export const BackgroundSection = styled.div`
+  top: 56px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  z-index: -1;
+
+  & img {
+    max-width: 290px;
+    max-height: 230px;
+
+    @media (max-width: 768px) {
+      width: 30%;
+      height: 30%;
+    }
   }
 `
 
