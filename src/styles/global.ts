@@ -8,6 +8,13 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  @media (max-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+
   body {
     background-color: ${theme.palette.background.default};
     -webkit-font-smoothing: antialiased;

@@ -1,3 +1,4 @@
+import BackgroundSection from '@/components/BackgroundSection'
 import { CustomTextField } from '@/components/InputTextField'
 import useFipeSearch from '@/hooks/useFipeSearch'
 import {
@@ -5,26 +6,12 @@ import {
   MainContainer,
   ConsultPriceButton,
 } from '@/styles/pages/home'
-import {
-  Autocomplete,
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  Paper,
-  TextField,
-} from '@mui/material'
+import { Autocomplete } from '@mui/material'
 import axios from 'axios'
-import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-
-interface CarRequestProps {
-  codigo: string
-  nome: string
-}
 
 interface CarProps {
   nome: string
@@ -35,16 +22,8 @@ interface HomeProps {
 }
 
 export default function Home({ carBrandsList }: HomeProps) {
-  const {
-    carList,
-    modelList,
-    isLoading,
-    error,
-    selectCar,
-    selectModel,
-    selectYear,
-    yearList,
-  } = useFipeSearch()
+  const { modelList, error, selectCar, selectModel, selectYear, yearList } =
+    useFipeSearch()
   const [selectedBrand, setSelectedBrand] = useState<any>(null)
   const [selectedModel, setSelectedModel] = useState<any>(null)
   const [selectedYear, setSelectedYear] = useState<any>(null)
@@ -83,10 +62,6 @@ export default function Home({ carBrandsList }: HomeProps) {
     setSelectedYear(value)
   }
 
-  // if (isLoading) {
-  //   return <CircularProgress />
-  // }
-
   if (error) {
     return <div>Error: {error.message}</div>
   }
@@ -100,14 +75,8 @@ export default function Home({ carBrandsList }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainContainer>
-        {/* <Paper
-            sx={{
-              maxWidth: '40rem',
-              width: '100%',
-              my: { xs: 3, md: 6 },
-              p: '2rem 3rem',
-            }}
-          > */}
+        <BackgroundSection />
+
         <h1>Tabela Fipe</h1>
         <h2>Consulte o valor de um veículo de forma gratuita</h2>
 
@@ -146,6 +115,7 @@ export default function Home({ carBrandsList }: HomeProps) {
               <CustomTextField {...params} label="Ano" variant="filled" />
             )}
             disabled={!selectedModel}
+            hidden={!selectedModel}
           />
 
           <ConsultPriceButton variant="contained" disabled={!selectedYear}>
@@ -159,7 +129,6 @@ export default function Home({ carBrandsList }: HomeProps) {
                   ano: selectedYear?.codigo,
                 },
               }}
-              // href={`/vehicle/${selectedBrand?.codigo}`}
             >
               Consultar Preço
             </Link>
