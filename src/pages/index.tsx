@@ -8,16 +8,10 @@ import {
 } from '@/styles/pages/home'
 import { Autocomplete } from '@mui/material'
 import axios from 'axios'
-import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-
-interface CarRequestProps {
-  codigo: string
-  nome: string
-}
 
 interface CarProps {
   nome: string
@@ -28,16 +22,8 @@ interface HomeProps {
 }
 
 export default function Home({ carBrandsList }: HomeProps) {
-  const {
-    carList,
-    modelList,
-    isLoading,
-    error,
-    selectCar,
-    selectModel,
-    selectYear,
-    yearList,
-  } = useFipeSearch()
+  const { modelList, error, selectCar, selectModel, selectYear, yearList } =
+    useFipeSearch()
   const [selectedBrand, setSelectedBrand] = useState<any>(null)
   const [selectedModel, setSelectedModel] = useState<any>(null)
   const [selectedYear, setSelectedYear] = useState<any>(null)
@@ -75,10 +61,6 @@ export default function Home({ carBrandsList }: HomeProps) {
   const handleYearChange = (event: any, value: string) => {
     setSelectedYear(value)
   }
-
-  // if (isLoading) {
-  //   return <CircularProgress />
-  // }
 
   if (error) {
     return <div>Error: {error.message}</div>
