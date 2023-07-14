@@ -6,7 +6,7 @@ import {
   ConsultPriceButton,
   BackgroundSection,
 } from '@/styles/pages/home'
-import { Autocomplete } from '@mui/material'
+import { Autocomplete, CircularProgress } from '@mui/material'
 import axios from 'axios'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -125,7 +125,22 @@ export default function Home({ carBrandsList }: HomeProps) {
             value={selectedModel}
             onChange={handleModelChange}
             renderInput={(params) => (
-              <CustomTextField {...params} label="Modelo" variant="filled" />
+              <CustomTextField
+                {...params}
+                label="Modelo"
+                variant="filled"
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <>
+                      {isLoading ? (
+                        <CircularProgress color="inherit" size={16} />
+                      ) : null}
+                      {params.InputProps.endAdornment}
+                    </>
+                  ),
+                }}
+              />
             )}
             disabled={!selectedBrand}
           />

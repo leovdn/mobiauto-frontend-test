@@ -2,11 +2,13 @@ import styled from 'styled-components'
 import { theme } from '../themes/default'
 
 export const Container = styled.div`
+  padding: 0 3rem;
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 100vh;
 `
 
 export const Header = styled.header`
@@ -14,6 +16,8 @@ export const Header = styled.header`
   height: 56px;
   width: 100%;
   margin: 0 auto;
+
+  position: fixed;
   z-index: 99;
 
   display: flex;

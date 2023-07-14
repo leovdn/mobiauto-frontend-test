@@ -7,7 +7,8 @@ export const MainContainer = styled.main`
   flex-direction: column;
   align-items: center;
   height: 100%;
-  margin-top: 8em;
+  margin-top: 12rem;
+  max-width: 1180px;
 `
 
 export const TableContainer = styled(Paper)`

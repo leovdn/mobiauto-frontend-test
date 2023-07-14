@@ -48,17 +48,19 @@ export const getServerSideProps: GetServerSideProps<
   const modelo = String(query.modelo)
   const ano = String(query.ano)
 
-  try {
-    const { data } = await axios.get(
-      `https://parallelum.com.br/fipe/api/v1/carros/marcas/${marca}/modelos/${modelo}/anos/${ano}`
-    )
+  const { data } = await axios.get(
+    `https://parallelum.com.br/fipe/api/v1/carros/marcas/${marca}/modelos/${modelo}/anos/${ano}`
+  )
 
-    if (!data) {
-      return { notFound: true }
-    }
+  // if (!data) {
+  //   return { notFound: true }
+  // }
 
-    return { props: { ...data } }
-  } catch (error) {
-    return { notFound: true }
+  // return { props: { ...data } }
+
+  return {
+    props: {
+      ...data,
+    },
   }
 }
