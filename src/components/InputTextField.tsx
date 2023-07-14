@@ -24,27 +24,25 @@ export const CustomTextField = styled((props: TextFieldProps) => (
     '&:hover': {
       backgroundColor: 'transparent',
       border: `1px solid ${theme.palette.primary.main}`,
+      outline: 'blue',
     },
     '&.Mui-focused': {
       backgroundColor: 'transparent',
       border: `1px solid ${theme.palette.primary.main}`,
     },
+    '&:disabled': {
+      backgroundColor: 'transparent',
+      border: 'none',
+    },
+    '&:before': {
+      borderBottom: 0,
+      display: 'none',
+    },
+    '&:after': {
+      borderBottom: 0,
+    },
   },
-  '& .MuiFilledInput-root:disabled': {
-    backgroundColor: 'transparent',
-    border: 'none',
-  },
-  '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:before': {
-    borderBottom: 0,
-    display: 'none',
-  },
-  '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:after': {
-    borderBottom: 0,
-  },
-  '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root:hover': {
-    outline: 'blue',
-  },
-  '& .mui-style-i16y9h-MuiInputBase-root-MuiFilledInput-root.Mui-disabled': {
+  '& .MuiFilledInput-root.Mui-disabled': {
     outline: 'none',
     backgroundColor: 'transparent',
   },
