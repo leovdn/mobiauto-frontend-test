@@ -1,16 +1,21 @@
 import { HeaderContainer, Logo } from '@/styles/pages/app'
+import Link from 'next/link'
 import React from 'react'
 
 export default function Header() {
   return (
     <HeaderContainer>
-      <Logo>
-        <span>Front</span>
-        <span>End</span>
-      </Logo>
-      <div>
-        <nav>Consulta Tabela Fipe</nav>
-      </div>
+      <Link href="/">
+        <Logo>
+          <div className="front-logo">
+            <span>Front</span>
+            <span>End</span>
+          </div>
+          <div className="consulta-logo">
+            <nav>Consulta Tabela Fipe</nav>
+          </div>
+        </Logo>
+      </Link>
     </HeaderContainer>
   )
 }

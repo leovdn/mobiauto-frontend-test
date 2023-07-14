@@ -1,4 +1,3 @@
-import { Chip, Container } from '@mui/material'
 import styled from 'styled-components'
 import { theme } from '../themes/default'
 
@@ -18,6 +17,10 @@ export const VehicleFipeContainer = styled.main`
     display: flex;
     gap: 0.5rem;
     color: ${theme.palette.grey[800]};
+
+    @media (max-width: 600px) {
+      font-size: 1.5rem;
+    }
   }
 
   p {
