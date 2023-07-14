@@ -2,7 +2,7 @@ import { Chip, Container } from '@mui/material'
 import styled from 'styled-components'
 import { theme } from '../themes/default'
 
-export const VehicleFipeContainer = styled(Container)`
+export const VehicleFipeContainer = styled.main`
   height: 100vh;
   width: 100%;
 
@@ -14,9 +14,16 @@ export const VehicleFipeContainer = styled(Container)`
 
   background-color: ${theme.palette.secondary.light};
 
+  h1 {
+    display: flex;
+    gap: 0.5rem;
+    color: ${theme.palette.grey[800]};
+  }
+
   p {
     font-size: 0.875rem;
-    color: #757575;
+    color: ${theme.palette.grey[500]};
+    font-weight: 500;
   }
 `
 

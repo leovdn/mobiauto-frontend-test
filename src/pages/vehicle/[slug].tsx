@@ -17,7 +17,6 @@ interface IVehicleFipeInfo {
 }
 
 export default function Result(vehicleFipeInfo: IVehicleFipeInfo) {
-  console.log(vehicleFipeInfo)
   return (
     <>
       <Head>
@@ -27,16 +26,16 @@ export default function Result(vehicleFipeInfo: IVehicleFipeInfo) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <VehicleFipeContainer>
-          <h1>
-            Tabela Fipe: Preço {vehicleFipeInfo.Marca} {vehicleFipeInfo.Modelo}{' '}
-            {vehicleFipeInfo.AnoModelo}
-          </h1>
-          <FipePrice>{vehicleFipeInfo.Valor}</FipePrice>
-          <p>Este é o preço de compra do veículo</p>
-        </VehicleFipeContainer>
-      </main>
+      <VehicleFipeContainer>
+        <h1>
+          <span>Tabela Fipe: Preço</span>
+          <span>{vehicleFipeInfo.Marca}</span>
+          <span>{vehicleFipeInfo.Modelo}</span>
+          <span>{vehicleFipeInfo.AnoModelo}</span>
+        </h1>
+        <FipePrice>{vehicleFipeInfo.Valor}</FipePrice>
+        <p>Este é o preço de compra do veículo</p>
+      </VehicleFipeContainer>
     </>
   )
 }
