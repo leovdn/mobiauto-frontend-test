@@ -1,16 +1,18 @@
 import * as React from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
+import NextNProgress from 'nextjs-progressbar'
+
+import { FipeSearchProvider } from '@/context/FipeSearchContext'
 import createEmotionCache from '@/utils/createEmotionCache'
+import Header from '@/components/Header'
 
 import { GlobalStyle } from '@/styles/global'
 import { theme } from '@/styles/themes/default'
-import { FipeSearchProvider } from '@/context/FipeSearchContext'
 import { Container } from '@/styles/pages/app'
-import Header from '@/components/Header'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -31,6 +33,7 @@ export default function MyApp(props: MyAppProps) {
           <CssBaseline />
           <Container>
             <Header />
+            <NextNProgress color={theme.palette.primary.main} showOnShallow />
             <Component {...pageProps} />
           </Container>
         </ThemeProvider>
