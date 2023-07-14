@@ -4,10 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import { ErrorMessage, ErrorSection } from '@/styles/pages/error'
-import { BackgroundSection, MainContainer } from '@/styles/pages/home'
+import { MainContainer } from '@/styles/pages/home'
+import BackgroundSection from '@/components/BackgroundSection'
 
-import BgDetails from '../assets/bg-details.svg'
-import BgDetails2 from '../assets/bg-details2.svg'
 import carCrash from '../assets/crash.svg'
 
 export default function Error() {
@@ -23,10 +22,7 @@ export default function Error() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainContainer>
-        <BackgroundSection>
-          <Image src={BgDetails2} alt={''} />
-          <Image src={BgDetails} alt={''} />
-        </BackgroundSection>
+        <BackgroundSection />
         <ErrorSection>
           <ErrorMessage>
             <h1>OPS!</h1>

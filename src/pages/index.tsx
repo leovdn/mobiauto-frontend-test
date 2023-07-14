@@ -1,22 +1,18 @@
+import BackgroundSection from '@/components/BackgroundSection'
 import { CustomTextField } from '@/components/InputTextField'
 import useFipeSearch from '@/hooks/useFipeSearch'
 import {
   TableContainer,
   MainContainer,
   ConsultPriceButton,
-  BackgroundSection,
 } from '@/styles/pages/home'
-import { Autocomplete, CircularProgress } from '@mui/material'
+import { Autocomplete } from '@mui/material'
 import axios from 'axios'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-
-import BgDetails from '../assets/bg-details.svg'
-import BgDetails2 from '../assets/bg-details2.svg'
-import Image from 'next/image'
 
 interface CarRequestProps {
   codigo: string
@@ -97,10 +93,7 @@ export default function Home({ carBrandsList }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainContainer>
-        <BackgroundSection>
-          <Image src={BgDetails2} alt={''} />
-          <Image src={BgDetails} alt={''} />
-        </BackgroundSection>
+        <BackgroundSection />
 
         <h1>Tabela Fipe</h1>
         <h2>Consulte o valor de um veículo de forma gratuita</h2>
@@ -125,22 +118,7 @@ export default function Home({ carBrandsList }: HomeProps) {
             value={selectedModel}
             onChange={handleModelChange}
             renderInput={(params) => (
-              <CustomTextField
-                {...params}
-                label="Modelo"
-                variant="filled"
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    <>
-                      {isLoading ? (
-                        <CircularProgress color="inherit" size={16} />
-                      ) : null}
-                      {params.InputProps.endAdornment}
-                    </>
-                  ),
-                }}
-              />
+              <CustomTextField {...params} label="Modelo" variant="filled" />
             )}
             disabled={!selectedBrand}
           />

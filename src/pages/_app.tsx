@@ -9,7 +9,8 @@ import createEmotionCache from '@/utils/createEmotionCache'
 import { GlobalStyle } from '@/styles/global'
 import { theme } from '@/styles/themes/default'
 import { FipeSearchProvider } from '@/context/FipeSearchContext'
-import { Container, Header } from '@/styles/pages/app'
+import { Container } from '@/styles/pages/app'
+import Header from '@/components/Header'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -29,7 +30,7 @@ export default function MyApp(props: MyAppProps) {
           <GlobalStyle />
           <CssBaseline />
           <Container>
-            <Header>Front-End Teste - Consulta Tabela Fipe</Header>
+            <Header />
             <Component {...pageProps} />
           </Container>
         </ThemeProvider>
